@@ -5,6 +5,8 @@ const Header = () => {
     const navItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="/login">Login</Link></li>
+
     </>
     return (
         <div className="navbar h-32 mb-4">
@@ -28,7 +30,7 @@ const Header = () => {
             </div>
             <div className="navbar-end">
                 <Link>
-                    <button className="btn btn-outline text-orange-600">Appointment</button>
+                    <button className="btn btn-outline text-[#FF3811]">Appointment</button>
                 </Link>
             </div>
         </div>
