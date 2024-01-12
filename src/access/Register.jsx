@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import img from '../assets/images/login/login.svg'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../providers/AuthProvider';
+import SocialLogin from './socialLogin';
 const Register = () => {
     const {createUser} = useContext(AuthContext);
     const [success, setSuccess] = useState('');
@@ -76,7 +77,10 @@ const Register = () => {
                         <input className="btn text-white bg-[#FF3811] hover:bg-[#ff5411f1]" type="submit" value="Sign Up" />
                     </div>
                 </form>
-                <p className='my-5 text-center'>Already Have An Account? Please <Link to="/login" className="text-[#FF3811] underline">Login</Link></p>
+                <div>
+                    <SocialLogin></SocialLogin>
+                </div>
+                <p className='my-6 text-center'>Already Have An Account? Please <Link to="/login" className="text-[#FF3811] underline">Login</Link></p>
             </div>
         </div>
     </div>
