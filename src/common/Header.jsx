@@ -4,23 +4,26 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Header = () => {
-    const {logOut, user} = useContext(AuthContext);
+    const { logOut, user } = useContext(AuthContext);
 
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         logOut()
-        .then( () => {})
-        .catch(error => {
-            console.log(error.message)
-        })
+            .then(() => { })
+            .catch(error => {
+                console.log(error.message)
+            })
 
     }
     const navItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="/bookings">My Bookings</Link></li>
         {
-            user?
-            <li><Link onClick={handleLogOut} to="/login">LogOut</Link></li> :
-            <li><Link onClick={handleLogOut} to="/login">Login</Link></li>
+            user ?
+               
+                <li><Link onClick={handleLogOut} to="/login">LogOut</Link></li>
+                :
+                <li><Link onClick={handleLogOut} to="/login">Login</Link></li>
         }
 
     </>
