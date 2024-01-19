@@ -50,6 +50,30 @@ const AuthProvider = ({ children }) => {
             console.log(currentUser);
             setUser(currentUser);
             setLoading(false);
+
+            if( currentUser && currentUser.email){
+                const loggedUser = {
+                    email: currentUser.email 
+                };
+                console.log(loggedUser);
+                // jwt
+                fetch('http://localhost:5000/jwt', {
+                    method:'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(loggedUser)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('jwt response', data)
+                    // warning: local storage is not the best place to store access token
+                    localStorage.setItem('car-doctor-accessToken', data.token);
+                })
+            }
+            else{
+                localStorage.removeItem('car-doctor-accessToken')
+            }
         });
         return () => {
             unsubscribe();

@@ -53,7 +53,7 @@ const CheckOut = () => {
     }
     return (
         <div className="m-10">
-            <h3 className="text-4xl font-semibold text-center mb-12 text-black">This is checkOut of<span className="text-[#FF3811] font-bold">{title}</span></h3>
+            <h3 className="text-4xl font-semibold text-center mb-12 text-black">This is checkOut of <span className="text-[#FF3811] font-bold">{title}</span></h3>
             <div className="card shrink-0 w-full bg-gray-100 md:p-7 lg:p-10 ">
                 <form onSubmit={handleCheckOut} className="card-body ">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

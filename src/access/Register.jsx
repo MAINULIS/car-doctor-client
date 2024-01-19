@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../assets/images/login/login.svg'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../providers/AuthProvider';
 import SocialLogin from './socialLogin';
 const Register = () => {
     const {createUser} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
 
@@ -32,6 +35,7 @@ const Register = () => {
             setSuccess(`${name}, Your Account has been successfully created.`);
             setError('');
             form.reset();
+            navigate(from, {replace:true})
 
         })
         .catch(error => {

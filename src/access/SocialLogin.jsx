@@ -2,19 +2,24 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa6";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
     const {signInWithGoogle, signInWithGithub} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
 
     const handleLoginWithGoogle = () => {
         signInWithGoogle()
         .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
+            const loggedUse = result.user;
+           console.log(loggedUse);
             setSuccess('You have successfully signed in');
             setError('');
+            navigate(from, {replace:true})
         })
         .catch(error => {
             setError(error.message);
@@ -28,6 +33,7 @@ const SocialLogin = () => {
             console.log(loggedUser);
             setSuccess('You have successfully signed in');
             setError('');
+            navigate(from, {replace:true})
         })
         .catch(error => {
             setError(error.message);

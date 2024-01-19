@@ -2,17 +2,32 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
+    const navigate = useNavigate()
 
-    const url = `http://localhost:5000/bookings?email=${user.email}`;
+    const url = `http://localhost:5000/bookings?email=${user?.email}`;
     useEffect(() => {
-        fetch(url)
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('car-doctor-accessToken')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setBookings(data))
-    }, [url]);
+            .then(data =>{
+                if(!data.error){
+                    setBookings(data)
+                }
+                else{
+                    // log out then navigate
+                    navigate ('/');
+                }
+            })
+    }, [url, navigate]);
 
     const handleDelete = id => {
         // console.log(id)
@@ -46,6 +61,7 @@ const Bookings = () => {
           });
 
     }
+    // update <---> patch
     const handleStatus = id => {
         fetch(`http://localhost:5000/bookings/${id}`, {
             method: 'PATCH',
@@ -61,7 +77,8 @@ const Bookings = () => {
             const remaining = bookings.filter(booking => booking._id !== id);
             const updated = bookings.find(booking => booking._id === id);
             updated.status = 'confirm';
-            setBookings(remaining);
+            const newBooking = [updated, ...remaining];
+            setBookings(newBooking);
             }
         })
     }
